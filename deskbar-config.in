@@ -1,0 +1,87 @@
+#! /bin/sh
+#
+# Returns the library and include paths of deskbar. Useful for compiling
+# compiling plugins outsinde of the source tree.
+#
+# Based on the gtk-config script from the GTK+ library package.
+#
+# Copyright (c) 2005, Christoph Kappel <unexist@hilflos.org>
+#
+# Released under the GNU Public License
+#
+
+prefix="@prefix@"
+
+version="@PACKAGE_VERSION@"
+lib_dir="@prefix@/lib"
+plugin_dir="@prefix@/lib/@PACKAGE_NAME@"
+
+usage()
+{
+	cat <<EOF
+Usage: deskbar-config [OPTIONS]
+Options:
+  [--prefix[=DIR]]
+  [--version]
+  [--libs]
+  [--cflags]
+  [--plugin-dir]
+
+EOF
+
+	exit $1
+}
+
+if test $# -eq 0; then
+	usage 1 1>&2
+fi
+
+while test $# -gt 0; do
+	case $1 in
+		--prefix)
+			echo_prefix=yes
+			;;
+
+		--exec-prefix)
+			echo_exec_prefix=yes
+			;;
+
+		--version)
+			echo $version
+			;;
+
+		--cflags)
+			echo_cflags=yes
+			;;
+
+		--libs)
+			echo_libs=yes
+			;;
+
+		--plugin-dir)
+			echo_plugin_dir=yes
+			;;
+		
+		*)
+			usage 1 1>&2
+			;;
+	esac
+	
+	shift
+done
+
+if test "$echo_prefix" = "yes"; then
+	echo $prefix
+fi
+
+if test "$echo_cflags" = "yes"; then
+	echo "-I$lib_dir"
+fi
+
+if test "$echo_libs" = "yes"; then
+	echo "-L$lib_dir -ldeskbar"
+fi
+
+if test "$echo_plugin_dir" = "yes"; then
+	echo $plugin_dir
+fi

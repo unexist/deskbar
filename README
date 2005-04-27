@@ -1,0 +1,4 @@
+deskbar 0.0
+-----------
+A lightweight, modular system monitor. Just xlib based with optional
+PNG support. (Deps can vary with the plugins)
