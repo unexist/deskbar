@@ -9,7 +9,7 @@ typedef struct dbhtableelement_t
 	
 	struct dbhtableelement_t *prev;
 	struct dbhtableelement_t *next;
-} DbHtableElement;
+} DbHtableElement; 
 
 typedef struct dbhtable_t
 {
@@ -22,7 +22,7 @@ typedef struct dbhtable_t
 DbHtable *db_htable_new (void);
 
 void db_htable_push (DbHtable *table, void *key, void *value);
-void * db_htable_pop (DbHtable *table, void *key);
+void *db_htable_pop (DbHtable *table, void *key);
 void db_htable_destroy (DbHtable *table);
 
 #endif /* DB_HTABLE_H */

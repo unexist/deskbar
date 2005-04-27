@@ -60,7 +60,7 @@ am__installdirs = "$(DESTDIR)$(libdir)" \
 libLTLIBRARIES_INSTALL = $(INSTALL)
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libdeskbar_la_LIBADD =
-am_libdeskbar_la_OBJECTS = list.lo log.lo htable.lo mem.lo string.lo \
+am_libdeskbar_la_OBJECTS = list.lo log.lo htable.lo mem.lo strings.lo \
 	times.lo
 libdeskbar_la_OBJECTS = $(am_libdeskbar_la_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -197,10 +197,10 @@ deskbarincludedir = $(prefix)/include/libdeskbar
 lib_LTLIBRARIES = libdeskbar.la
 libdeskbar_la_LDFLAGS = -export-dynamic
 libdeskbar_la_SOURCES = \
-	list.c log.c htable.c mem.c string.c times.c
+	list.c log.c htable.c mem.c strings.c times.c
 
 deskbarinclude_HEADERS = \
-	list.h log.h htable.h mem.h string.h times.h plug.h
+	list.h log.h htable.h mem.h strings.h times.h plug.h
 
 all: all-am
 
@@ -275,7 +275,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/log.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mem.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/string.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/strings.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/times.Plo@am__quote@
 
 .c.o:

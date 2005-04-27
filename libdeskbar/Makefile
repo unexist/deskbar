@@ -60,7 +60,7 @@ am__installdirs = "$(DESTDIR)$(libdir)" \
 libLTLIBRARIES_INSTALL = $(INSTALL)
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libdeskbar_la_LIBADD =
-am_libdeskbar_la_OBJECTS = list.lo log.lo htable.lo mem.lo string.lo \
+am_libdeskbar_la_OBJECTS = list.lo log.lo htable.lo mem.lo strings.lo \
 	times.lo
 libdeskbar_la_OBJECTS = $(am_libdeskbar_la_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -81,15 +81,15 @@ HEADERS = $(deskbarinclude_HEADERS)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/unexist/projects/deskbar/missing --run aclocal-1.9
+ACLOCAL = ${SHELL} /home/unexist/projects/cvs/deskbar/missing --run aclocal-1.9
 ALLOCA = 
 AMDEP_FALSE = #
 AMDEP_TRUE = 
-AMTAR = ${SHELL} /home/unexist/projects/deskbar/missing --run tar
+AMTAR = ${SHELL} /home/unexist/projects/cvs/deskbar/missing --run tar
 AR = ar
-AUTOCONF = ${SHELL} /home/unexist/projects/deskbar/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/unexist/projects/deskbar/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/unexist/projects/deskbar/missing --run automake-1.9
+AUTOCONF = ${SHELL} /home/unexist/projects/cvs/deskbar/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/unexist/projects/cvs/deskbar/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/unexist/projects/cvs/deskbar/missing --run automake-1.9
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -113,12 +113,12 @@ F77 = g77
 FFLAGS = -g -O2
 HAVE_BAT_FALSE = #
 HAVE_BAT_TRUE = 
-HAVE_BMP_FALSE = 
-HAVE_BMP_TRUE = #
+HAVE_BMP_FALSE = #
+HAVE_BMP_TRUE = 
 HAVE_DEBUG_FALSE = #
 HAVE_DEBUG_TRUE = 
-HAVE_XMMS_FALSE = 
-HAVE_XMMS_TRUE = #
+HAVE_XMMS_FALSE = #
+HAVE_XMMS_TRUE = 
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
@@ -129,7 +129,7 @@ LIBS =   -ldl -lX11 -lz -lpng
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/unexist/projects/deskbar/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/unexist/projects/cvs/deskbar/missing --run makeinfo
 OBJEXT = o
 PACKAGE = deskbar
 PACKAGE_BUGREPORT = unexist@hilflos.org
@@ -177,7 +177,7 @@ host_os = linux-gnu
 host_vendor = pc
 includedir = ${prefix}/include
 infodir = ${prefix}/info
-install_sh = /home/unexist/projects/deskbar/install-sh
+install_sh = /home/unexist/projects/cvs/deskbar/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localstatedir = ${prefix}/var
@@ -197,10 +197,10 @@ deskbarincludedir = $(prefix)/include/libdeskbar
 lib_LTLIBRARIES = libdeskbar.la
 libdeskbar_la_LDFLAGS = -export-dynamic
 libdeskbar_la_SOURCES = \
-	list.c log.c htable.c mem.c string.c times.c
+	list.c log.c htable.c mem.c strings.c times.c
 
 deskbarinclude_HEADERS = \
-	list.h log.h htable.h mem.h string.h times.h plug.h
+	list.h log.h htable.h mem.h strings.h times.h plug.h
 
 all: all-am
 
@@ -275,7 +275,7 @@ include ./$(DEPDIR)/htable.Plo
 include ./$(DEPDIR)/list.Plo
 include ./$(DEPDIR)/log.Plo
 include ./$(DEPDIR)/mem.Plo
-include ./$(DEPDIR)/string.Plo
+include ./$(DEPDIR)/strings.Plo
 include ./$(DEPDIR)/times.Plo
 
 .c.o:

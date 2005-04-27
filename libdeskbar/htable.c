@@ -1,5 +1,5 @@
-#include "stdio.h"
-#include "string.h"
+#include <stdio.h>
+#include <string.h>
 
 #include "htable.h"
 #include "log.h"
@@ -38,7 +38,7 @@ db_htable_push (DbHtable *table,
 
 	if (element)
 		{
-			element->hash		= db_string_hash ((char *) key);
+			element->hash		= db_strings_hash ((char *) key);
 			element->value	= value;
 			element->prev		= NULL;
 			element->next		= NULL;
@@ -122,7 +122,7 @@ db_htable_pop (DbHtable *table,
 	DbHtableElement *cur	= NULL,
 			  				  *next	= NULL;
 
-	hash = db_string_hash ((char *) key);
+	hash = db_strings_hash ((char *) key);
 	
 	cur = table->first;
 	
