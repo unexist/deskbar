@@ -1,0 +1,86 @@
+version 0.1		(04/14/2005)
+	* Added some string functions (lower/upper)
+	* Moved hash function in the libdeskbar
+	* Modified object loader
+	* Added different object types
+	* Modified parser
+	
+version 0.1		(04/07/2005)
+	* Finished the xml parser
+	* Added hash tables
+	* Added own namespace
+	* Modified plugin loader
+	* Moved list into the libdeskbar
+	
+version 0.1		(04/02/2005)
+	* Rebuild the autotool scripts
+	* Added checks for various plugins
+	* Added primarily xml parser
+	* Added text objects
+	* Added GC handler
+	* Removed ewmh
+
+version 0.1		(01/30/2005)
+	* Added garbage collection for the plugins
+	* Wrote a small memory profiler
+
+version 0.1		(01/28/2005)
+	* Added libtool support
+	* Put some parts together to a lib
+	* Slightly modified buildtree
+	* Updated commandline arguments
+	* Forks now to background
+	* Removed click handler
+
+version 0.0		(01/16/2005)
+	* Fixed problems with the inaccuracy of the select
+
+version 0.0		(01/15/2005)
+	* Changed mechanism to determine the internal counter
+	
+version 0.0		(01/14/2005)
+	* Rewrote the plugin updates
+
+version 0.0		(12/23/2004)
+	* Parser again..
+	* Some bugfixes
+
+version 0.0		(12/09/2004)
+	* Still the parser
+	* Re-thought some things..
+
+version 0.0		(12/07/2004):
+	* Tried to cleanup the XML parser..
+
+version 0.0		(12/03/2004):
+	* Started XML parser
+	
+version 0.0		(12/01/2004):
+	* Try to finally include PNG support
+	* Changed the time, update and delta functions
+
+version 0.0		(11/25/2004):
+	* Started rewrote of the update algorithm
+
+version 0.0		(11/26/2004):
+	* Wrote xmms plugin
+
+version 0.0		(11/23/2004):
+	* Added segfault catching within modules
+	* Added unloading and tyding up functions
+	* Wrote clock plugin
+	* Wrote date plugin
+
+version 0.0		(11/22/2004):
+	* Rewrote plugin system
+	* Added loading of shared objects
+	* Wrote cpu plugin
+	* Wrote battery plugin (acpi)
+
+version 0.0		(11/21/2004):
+	* Wrote primarily config parsing
+
+version 0.0		(11/14/2004):
+	* Project start
+	* Wrote loghandlers
+	* Wrote base x-things
