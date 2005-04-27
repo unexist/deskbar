@@ -26,7 +26,7 @@
 #define HAVE_BAT 1
 
 /* Define to 1 if you have libbmp support */
-/* #undef HAVE_BMP */
+#define HAVE_BMP 1
 
 /* Define to 1 if you have the `btowc' function. */
 /* #undef HAVE_BTOWC */
@@ -173,7 +173,7 @@
 #define HAVE_WORKING_VFORK 1
 
 /* Define to 1 if you have libxmms support */
-/* #undef HAVE_XMMS */
+#define HAVE_XMMS 1
 
 /* Define to 1 if you have ZLIB support */
 #define HAVE_ZLIB 1

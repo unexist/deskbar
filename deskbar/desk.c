@@ -28,11 +28,6 @@ typedef struct xserver_t
 	Window root;
 
 	Colormap colormap;
-
-	int screen;
-	int width;
-	int height;
-	int depth;
 } XServer;
 
 typedef struct object_t
@@ -85,7 +80,7 @@ parse_font (const char *font_name,
 
 	if (!xfs)
 		{
-			db_log_err ("Unable to parse font `%s',"\
+			db_log_err ("Unable to parse font `%s', "\
 				"falling back to fixed.\n", 
 				font_name);
 
@@ -99,21 +94,17 @@ parse_font (const char *font_name,
 void
 db_desk_init (void)
 {
-	int release;
+	int release, screen;
 			
-	/* Malloc */
 	xs = (XServer *) malloc (sizeof (XServer));
 
-	/* Server layout */
-	xs->display		= XOpenDisplay (NULL);
-	xs->screen		= DefaultScreen (xs->display);
-	xs->width			= DisplayWidth (xs->display, xs->screen);
-	xs->height		= DisplayHeight (xs->display, xs->screen);
-	xs->root			= RootWindow (xs->display, xs->screen);
-	xs->depth			= DefaultDepth (xs->display, xs->screen);
-	xs->colormap	= DefaultColormap (xs->display, xs->screen);
-
+	xs->display = XOpenDisplay (NULL);
+	
+	screen	= DefaultScreen (xs->display);
 	release	= VendorRelease (xs->display);
+	
+	xs->root			= RootWindow (xs->display, screen);
+	xs->colormap	= DefaultColormap (xs->display, screen);
 
 	db_log_mesg ("X Version %d, Revision %d, Release %d.%d.%d\n" \
 							 "Display Geometry %dx%d @ %dbit\n",
@@ -122,7 +113,9 @@ db_desk_init (void)
 							 (release / 10000000), 
 							 (release % 10000000 / 100000),
 							 (release % 10000000 % 100000 / 1000),
-							 xs->width, xs->height, xs->depth);
+							 DisplayWidth (xs->display, screen),
+							 DisplayHeight (xs->display, screen),
+							 DefaultDepth (xs->display, screen));
 
 	/* Listen on property changes of the root window */
 	XSelectInput (xs->display, xs->root, ExposureMask);

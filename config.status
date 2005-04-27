@@ -498,12 +498,12 @@ s,@INSTALL_DATA@,${INSTALL} -m 644,;t t
 s,@CYGPATH_W@,echo,;t t
 s,@PACKAGE@,deskbar,;t t
 s,@VERSION@,0.1,;t t
-s,@ACLOCAL@,${SHELL} /home/unexist/projects/deskbar/missing --run aclocal-1.9,;t t
-s,@AUTOCONF@,${SHELL} /home/unexist/projects/deskbar/missing --run autoconf,;t t
-s,@AUTOMAKE@,${SHELL} /home/unexist/projects/deskbar/missing --run automake-1.9,;t t
-s,@AUTOHEADER@,${SHELL} /home/unexist/projects/deskbar/missing --run autoheader,;t t
-s,@MAKEINFO@,${SHELL} /home/unexist/projects/deskbar/missing --run makeinfo,;t t
-s,@install_sh@,/home/unexist/projects/deskbar/install-sh,;t t
+s,@ACLOCAL@,${SHELL} /home/unexist/projects/cvs/deskbar/missing --run aclocal-1.9,;t t
+s,@AUTOCONF@,${SHELL} /home/unexist/projects/cvs/deskbar/missing --run autoconf,;t t
+s,@AUTOMAKE@,${SHELL} /home/unexist/projects/cvs/deskbar/missing --run automake-1.9,;t t
+s,@AUTOHEADER@,${SHELL} /home/unexist/projects/cvs/deskbar/missing --run autoheader,;t t
+s,@MAKEINFO@,${SHELL} /home/unexist/projects/cvs/deskbar/missing --run makeinfo,;t t
+s,@install_sh@,/home/unexist/projects/cvs/deskbar/install-sh,;t t
 s,@STRIP@,strip,;t t
 s,@ac_ct_STRIP@,strip,;t t
 s,@INSTALL_STRIP_PROGRAM@,${SHELL} $(install_sh) -c -s,;t t
@@ -511,7 +511,7 @@ s,@mkdir_p@,mkdir -p --,;t t
 s,@AWK@,gawk,;t t
 s,@SET_MAKE@,,;t t
 s,@am__leading_dot@,.,;t t
-s,@AMTAR@,${SHELL} /home/unexist/projects/deskbar/missing --run tar,;t t
+s,@AMTAR@,${SHELL} /home/unexist/projects/cvs/deskbar/missing --run tar,;t t
 s,@am__tar@,${AMTAR} chof - "$$tardir",;t t
 s,@am__untar@,${AMTAR} xf -,;t t
 s,@CC@,gcc,;t t
@@ -566,10 +566,10 @@ s,@ac_ct_F77@,g77,;t t
 s,@LIBTOOL@,$(SHELL) $(top_builddir)/libtool,;t t
 s,@HAVE_BAT_TRUE@,,;t t
 s,@HAVE_BAT_FALSE@,#,;t t
-s,@HAVE_XMMS_TRUE@,#,;t t
-s,@HAVE_XMMS_FALSE@,,;t t
-s,@HAVE_BMP_TRUE@,#,;t t
-s,@HAVE_BMP_FALSE@,,;t t
+s,@HAVE_XMMS_TRUE@,,;t t
+s,@HAVE_XMMS_FALSE@,#,;t t
+s,@HAVE_BMP_TRUE@,,;t t
+s,@HAVE_BMP_FALSE@,#,;t t
 s,@HAVE_DEBUG_TRUE@,,;t t
 s,@HAVE_DEBUG_FALSE@,#,;t t
 s,@plugindir@,/usr/local/lib/deskbar,;t t
@@ -949,6 +949,8 @@ ${ac_dA}HAVE_DLFCN_H${ac_dB}HAVE_DLFCN_H${ac_dC}1${ac_dD}
 ${ac_dA}HAVE_ZLIB${ac_dB}HAVE_ZLIB${ac_dC}1${ac_dD}
 ${ac_dA}HAVE_PNG${ac_dB}HAVE_PNG${ac_dC}1${ac_dD}
 ${ac_dA}HAVE_BAT${ac_dB}HAVE_BAT${ac_dC}1${ac_dD}
+${ac_dA}HAVE_XMMS${ac_dB}HAVE_XMMS${ac_dC}1${ac_dD}
+${ac_dA}HAVE_BMP${ac_dB}HAVE_BMP${ac_dC}1${ac_dD}
 ${ac_dA}HAVE_DEBUG${ac_dB}HAVE_DEBUG${ac_dC}1${ac_dD}
 ${ac_dA}PLUGIN_DIR${ac_dB}PLUGIN_DIR${ac_dC}"/usr/local/lib/deskbar"${ac_dD}
 CEOF
@@ -1030,6 +1032,8 @@ ${ac_uA}HAVE_DLFCN_H${ac_uB}HAVE_DLFCN_H${ac_uC}1${ac_uD}
 ${ac_uA}HAVE_ZLIB${ac_uB}HAVE_ZLIB${ac_uC}1${ac_uD}
 ${ac_uA}HAVE_PNG${ac_uB}HAVE_PNG${ac_uC}1${ac_uD}
 ${ac_uA}HAVE_BAT${ac_uB}HAVE_BAT${ac_uC}1${ac_uD}
+${ac_uA}HAVE_XMMS${ac_uB}HAVE_XMMS${ac_uC}1${ac_uD}
+${ac_uA}HAVE_BMP${ac_uB}HAVE_BMP${ac_uC}1${ac_uD}
 ${ac_uA}HAVE_DEBUG${ac_uB}HAVE_DEBUG${ac_uC}1${ac_uD}
 ${ac_uA}PLUGIN_DIR${ac_uB}PLUGIN_DIR${ac_uC}"/usr/local/lib/deskbar"${ac_uD}
 s,^[	 ]*#[	 ]*undef[	 ][	 ]*[a-zA-Z_][a-zA-Z_0-9]*,/* & */,

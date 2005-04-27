@@ -182,7 +182,7 @@ enable_bmp=no
 AC_MSG_CHECKING([beep-media-player/bmp/beepctrl.h usability])
 
 cat<<EOF > conftest.c
-	#include <ibeep-media-player/bmp/beepctrl.h>
+	#include <beep-media-player/bmp/beepctrl.h>
 
 	int
 	main (int argc,
