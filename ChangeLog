@@ -1,3 +1,6 @@
+version 0.1		(04/24/2005)
+	* Modified the code of the memory subs
+
 version 0.1		(04/14/2005)
 	* Added some string functions (lower/upper)
 	* Moved hash function in the libdeskbar
