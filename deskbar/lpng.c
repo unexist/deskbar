@@ -72,9 +72,10 @@ db_lpng_check_sig (FILE *file,
     return (0);
 }
 
+int
 db_lpng_load (double display_exponent,
-							int *channels,
-							unsigned long *bytes)
+	int *channels,
+	unsigned long *bytes)
 {
 	double gamma;
 	

@@ -1,7 +1,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.5.9)
-AC_INIT(deskbar, 0.1, unexist@hilflos.org)
+AC_INIT(deskbar, 0.2, unexist@hilflos.org)
 AC_CONFIG_SRCDIR([deskbar/main.c])
 AM_INIT_AUTOMAKE(no-define)
 AM_CONFIG_HEADER(config.h)

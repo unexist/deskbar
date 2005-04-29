@@ -2,7 +2,7 @@
 #include <signal.h>
 #include <setjmp.h>
 
-#include "desk.h"
+#include "display.h"
 #include "plug.h"
 #include "sig.h"
 
@@ -66,7 +66,7 @@ db_sig_destroy (void)
 	db_mem_profile ();
 
 	db_plug_unload_all ();
-	db_desk_destroy ();
+	db_display_destroy ();
 	
 	db_mem_table_destroy ();
 }

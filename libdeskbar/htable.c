@@ -1,9 +1,8 @@
-#include <stdio.h>
 #include <string.h>
 
 #include "htable.h"
 #include "log.h"
-#include "string.h"
+#include "strings.h"
 
 
 DbHtable *

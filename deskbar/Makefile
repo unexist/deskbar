@@ -53,7 +53,7 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_deskbar_OBJECTS = desk.$(OBJEXT) lpng.$(OBJEXT) main.$(OBJEXT) \
+am_deskbar_OBJECTS = display.$(OBJEXT) lpng.$(OBJEXT) main.$(OBJEXT) \
 	plug.$(OBJEXT) sig.$(OBJEXT) xml.$(OBJEXT)
 deskbar_OBJECTS = $(am_deskbar_OBJECTS)
 deskbar_DEPENDENCIES = $(top_builddir)/libdeskbar/libdeskbar.la
@@ -186,13 +186,13 @@ subdirs =  libltdl
 sysconfdir = ${prefix}/etc
 target_alias = 
 deskbar_SOURCES = \
-	desk.c lpng.c main.c plug.c sig.c xml.c
+	display.c lpng.c main.c plug.c sig.c xml.c
 
 deskbar_LDFLAGS = -Wl,--export-dynamic
 deskbar_LDADD = $(top_builddir)/libdeskbar/libdeskbar.la
 INCLUDES = -I$(top_srcdir)
 noinst_HEADERS = \
-	desk.h lpng.h plug.h sig.h xml.h
+	display.h lpng.h plug.h sig.h xml.h
 
 AM_CFLAGS = -Wall -Wpointer-arith -Wstrict-prototypes -O2
 all: all-am
@@ -266,7 +266,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-include ./$(DEPDIR)/desk.Po
+include ./$(DEPDIR)/display.Po
 include ./$(DEPDIR)/lpng.Po
 include ./$(DEPDIR)/main.Po
 include ./$(DEPDIR)/plug.Po

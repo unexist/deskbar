@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <errno.h>
 
-#include "desk.h"
+#include "display.h"
 #include "lpng.h"
 #include "plug.h"
 #include "sig.h"
@@ -59,8 +59,8 @@ main (int argc,
 			{"config",			required_argument,	0, 'c'},
 			{"foreground",	no_argument,				0, 'f'},
 			{"profile",     no_argument,        0, 'p'},
-			{"verbose",			no_argument,				0, 'V'},
-      {"version",			no_argument,				0, 'v'},
+			{"verbose",			no_argument,				0, 'v'},
+      {"version",			no_argument,				0, 'V'},
       {"help", 				no_argument,				0, 'h'},
       {0, 0, 0, 0}
     };
@@ -83,11 +83,11 @@ main (int argc,
 						db_mem_toggle_profile ();
 						break;
 						
-					case 'V':
+					case 'v':
 						db_log_toggle ();
 						break;
 
-					case 'v':
+					case 'V':
             version ();
 						return (0);
 						break;
@@ -113,12 +113,12 @@ main (int argc,
 	db_lpng_version ();
 #endif
 
-	db_desk_init ();
+	db_display_init ();
 	db_plug_init ();
 	
 	db_xml_parse_file (file);
 
-	db_desk_draw ();
+	db_display_draw ();
 
 	if (fg != 1)
 		{
@@ -140,7 +140,7 @@ main (int argc,
 				}
 		}
 
-	db_desk_event_loop ();
+	db_display_event_loop ();
 
 	db_sig_destroy ();
 	

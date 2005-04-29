@@ -1,13 +1,13 @@
 static char
 is_upper (char c)
 {
-	return ((((int) c & (1 << 9)) != 0) ? c - 'A' + 'a' : c);
+	return ((((int) c & (1 << 5)) != 0) ? c - 'a' + 'A' : c);
 }
 
 static char
 is_lower (char c)
 {
-	return ((((int) c & (1 << 5)) != 0) ? (c - 'a' + 'A') : c);
+	return ((((int) c & (1 << 9)) != 0) ? (c - 'A' + 'a') : c);
 }
 
 int
@@ -45,8 +45,6 @@ db_strings_tolower (char *s)
 			*s = is_lower (*s);
 			s++;
 		}
-		
-	return (s);
 }
 
 void
@@ -57,8 +55,6 @@ db_strings_toupper (char *s)
 			*s = is_upper (*s);
 			s++;
 		}
-
-	return (s);
 }
 
 /* djb2 hash algorithm */
