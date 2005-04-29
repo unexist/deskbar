@@ -3,7 +3,7 @@
 #include <string.h>
 #include <errno.h>
 
-#include "desk.h"
+#include "display.h"
 #include "plug.h"
 
 #include "libdeskbar/htable.h"
@@ -107,22 +107,16 @@ handle_toks (char **toks)
 
 			if (!strcmp (toks[0], "plugin"))
 				{
-					/* Plugins */
-					db_plug_load (
-						db_htable_pop (table, "name"),
-						db_htable_pop (table, "format"),
-						atoi (db_htable_pop (table, "interval")));
+					db_plug_load (table);
 				}
 			else if (!strcmp (toks[0], "text"))
 				{
-					/* Texts */
-					db_desk_obj_new (DB_OBJ_TEXT, table);
+					db_display_obj_new (DB_OBJ_TEXT, table);
 
 				}
 			else if (!strcmp (toks[0], "meter"))
 				{
-					/* Meters */
-					db_desk_obj_new (DB_OBJ_METER, table);
+					db_display_obj_new (DB_OBJ_METER, table);
 				}
 
 			db_htable_destroy (table);

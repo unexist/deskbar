@@ -12,6 +12,7 @@
 #include "libdeskbar/mem.h"
 #include "libdeskbar/htable.h"
 #include "libdeskbar/times.h"
+#include "libdeskbar/strings.h"
 
 #ifdef HAVE_CONFIG_H
   #include "config.h"
@@ -78,17 +79,20 @@ db_plug_get_interval (void)
 void
 db_plug_init (void)
 {
-	pluglist	= db_list_new ();
+	pluglist = db_list_new ();
 
 	db_mem_table_new ();
 }
 
 void
-db_plug_load (const char *file,
-	const char *format,
-	int plug_interval)
+db_plug_load (DbHtable *table)
 {
-	char *err	= NULL;
+	int intval;
+	int update;
+
+	char *err			= NULL;
+	char *file		= NULL;
+	char *format	= NULL;
 
 	char buf[120];
 
@@ -97,6 +101,20 @@ db_plug_load (const char *file,
 	DbPlugElement *element = NULL;
 
 	element = (DbPlugElement *) malloc (sizeof (DbPlugElement));
+
+	if (!element)
+		{
+			db_log_err ("Unable to alloc memory!\n");
+
+			return;
+		}
+	
+	/* Get data from the table */
+	file		= (char *) db_htable_pop (table, "name");
+	format	= (char *) db_htable_pop (table, "format");
+	intval	= atoi (db_htable_pop (table, "interval"));
+
+	db_strings_tolower (file);
 
 	snprintf (buf, sizeof (buf), "%s/%s.so", PLUGIN_DIR, file);
 	
@@ -117,7 +135,7 @@ db_plug_load (const char *file,
 	element->data	= (*entrypoint) ();
 		
 	/* Setup plugin */
-	element->data->interval = plug_interval;
+	element->data->interval = intval;
 
 	if (format)
 		element->data->format = strdup (format);
@@ -132,7 +150,10 @@ db_plug_load (const char *file,
 	save_call (element, element->data->update, "update");
 							
 	/* Update times */
-	element->updated = (db_time_current () + element->data->interval);
+	update	= db_time_current ();
+	update += (60 - (update % 60));
+
+	element->updated = (update + element->data->interval);
 		
 	/* Update internal time */
 	if (interval == 0)
