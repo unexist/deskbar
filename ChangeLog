@@ -1,3 +1,7 @@
+version 0.1		(04/29/2005)
+	* Changed the plugin loader
+	* Tidied up code
+
 version 0.1		(04/24/2005)
 	* Modified the code of the memory subs
 
