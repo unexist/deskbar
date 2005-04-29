@@ -9,12 +9,12 @@
 #include <errno.h>
 #include <fcntl.h>
 
-#include "desk.h"
+#include "display.h"
 #include "plug.h"
 
 #include "libdeskbar/list.h"
 #include "libdeskbar/log.h"
-#include "libdeskbar/string.h"
+#include "libdeskbar/strings.h"
 #include "libdeskbar/htable.h"
 #include "libdeskbar/times.h"
 
@@ -92,7 +92,7 @@ parse_font (const char *font_name,
 }
 
 void
-db_desk_init (void)
+db_display_init (void)
 {
 	int release, screen;
 			
@@ -124,7 +124,7 @@ db_desk_init (void)
 }
 
 void
-db_desk_obj_new (DbObjType type,
+db_display_obj_new (DbObjType type,
 	DbHtable *table)
 {
 	char *data	= NULL;
@@ -228,7 +228,7 @@ draw_objects (void *data,
 }
 
 void 
-db_desk_draw (void)
+db_display_draw (void)
 {
 	XClearWindow (xs->display, xs->root);
 
@@ -255,8 +255,11 @@ destroy_object (void *data,
 }
 
 void
-db_desk_destroy (void)
+db_display_destroy (void)
 {
+	XClearWindow (xs->display, xs->root);
+	XFlush (xs->display);
+
 	db_list_destroy (objlist, destroy_object);
 
 	XFreeColormap (xs->display, xs->colormap);
@@ -265,7 +268,7 @@ db_desk_destroy (void)
 }
 
 void
-db_desk_event_loop (void)
+db_display_event_loop (void)
 {
 	int s;
 	
@@ -297,7 +300,7 @@ db_desk_event_loop (void)
 
 							/* Timeout */
 							case 0:
-								db_desk_draw ();
+								db_display_draw ();
 								break;
 						}
 	  	  }
@@ -311,7 +314,7 @@ db_desk_event_loop (void)
 						{
   		    		case Expose:
 								if (event.xexpose.window == xs->root)
-      		    		db_desk_draw ();
+      		    		db_display_draw ();
 			      	  break;
 						}
 				}
