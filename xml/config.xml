@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- <!DOCTYPE display SYSTEM "/usr/local/share/deskbar/config.dtd"> -->
+<display version="0.2">
+	<plugin name="time" id="p1" options="%H.%M" interval="2" />
+	<plugin name="cpu" id="p2" interval="10" />
+	<plugin name="battery" id="p3" interval="600" />
+	
+	<text x="5" y="0" font="luxi sans" size="35" color="white" data="p1" />
+
+	<text x="110" y="10" font="luxi sans" size="10" color="white" value="[ CPU:                                           ]" />
+	<text x="110" y="25" font="luxi sans" size="10" color="white" value="[ Battery:                                      ]" />
+	
+	<text x="160" y="10" font="luxi sans" size="10" color="white" data="p2" />
+	<text x="160" y="25" font="luxi sans" size="10" color="white" data="p3" />
+
+	<meter x="220" y="13" color="white" width="42" height="8" data="p2" />
+	<meter x="220" y="28" color="white" width="42" height="8" data="p3" />
+</display>

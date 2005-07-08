@@ -1,0 +1,33 @@
+<!ELEMENT display (plugin | text | meter)+>
+<!ATTLIST display
+	version		CDATA		#REQUIRED
+	>
+
+<!ELEMENT plugin EMPTY>
+<!ATTLIST plugin
+	name			CDATA			#REQUIRED
+	id				CDATA			#IMPLIED
+	options		CDATA			#IMPLIED
+	interval	CDATA			#REQUIRED
+	>
+
+<!ELEMENT text EMPTY>
+<!ATTLIST text
+	x					CDATA			#REQUIRED
+	y					CDATA			#REQUIRED
+	font			CDATA			#IMPLIED
+	size			CDATA			#IMPLIED
+	color			CDATA			#IMPLIED
+	value			CDATA			#IMPLIED
+	data			CDATA			#IMPLIED
+	>
+
+<!ELEMENT meter EMPTY>
+<!ATTLIST meter
+	x					CDATA			#REQUIRED
+	y					CDATA			#REQUIRED
+	color			CDATA			#IMPLIED
+	width			CDATA			#REQUIRED
+	height		CDATA			#IMPLIED
+	data			CDATA			#REQUIRED
+	>
