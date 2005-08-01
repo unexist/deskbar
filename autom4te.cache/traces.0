@@ -160,9 +160,7 @@ m4trace:configure.in:19: -1- AC_SUBST([EGREP])
 m4trace:configure.in:19: -1- AC_DEFINE_TRACE_LITERAL([STDC_HEADERS])
 m4trace:configure.in:19: -1- AH_OUTPUT([STDC_HEADERS], [/* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS])
-m4trace:configure.in:20: -1- AC_CHECK_HEADERS([argz.h fcntl.h limits.h malloc.h memory.h stdlib.h string.h strings.h sys/time.h unistd.h])
-m4trace:configure.in:20: -1- AH_OUTPUT([HAVE_ARGZ_H], [/* Define to 1 if you have the <argz.h> header file. */
-#undef HAVE_ARGZ_H])
+m4trace:configure.in:20: -1- AC_CHECK_HEADERS([fcntl.h limits.h malloc.h memory.h sys/time.h unistd.h])
 m4trace:configure.in:20: -1- AH_OUTPUT([HAVE_FCNTL_H], [/* Define to 1 if you have the <fcntl.h> header file. */
 #undef HAVE_FCNTL_H])
 m4trace:configure.in:20: -1- AH_OUTPUT([HAVE_LIMITS_H], [/* Define to 1 if you have the <limits.h> header file. */
@@ -171,12 +169,6 @@ m4trace:configure.in:20: -1- AH_OUTPUT([HAVE_MALLOC_H], [/* Define to 1 if you h
 #undef HAVE_MALLOC_H])
 m4trace:configure.in:20: -1- AH_OUTPUT([HAVE_MEMORY_H], [/* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H])
-m4trace:configure.in:20: -1- AH_OUTPUT([HAVE_STDLIB_H], [/* Define to 1 if you have the <stdlib.h> header file. */
-#undef HAVE_STDLIB_H])
-m4trace:configure.in:20: -1- AH_OUTPUT([HAVE_STRING_H], [/* Define to 1 if you have the <string.h> header file. */
-#undef HAVE_STRING_H])
-m4trace:configure.in:20: -1- AH_OUTPUT([HAVE_STRINGS_H], [/* Define to 1 if you have the <strings.h> header file. */
-#undef HAVE_STRINGS_H])
 m4trace:configure.in:20: -1- AH_OUTPUT([HAVE_SYS_TIME_H], [/* Define to 1 if you have the <sys/time.h> header file. */
 #undef HAVE_SYS_TIME_H])
 m4trace:configure.in:20: -1- AH_OUTPUT([HAVE_UNISTD_H], [/* Define to 1 if you have the <unistd.h> header file. */
@@ -689,54 +681,54 @@ aclocal.m4:61: AC_PROG_LIBTOOL is expanded from...
 aclocal.m4:6188: AM_PROG_LIBTOOL is expanded from...
 configure.in:41: the top level])
 m4trace:configure.in:41: -1- AC_SUBST([LIBTOOL])
-m4trace:configure.in:64: -1- AC_CHECK_LIB([X11], [XOpenDisplay], [LIBS="$LIBS -lX11"], [{ { echo "$as_me:$LINENO: error: Could not find XOpenDisplay in -lX11." >&5
+m4trace:configure.in:80: -1- AC_CHECK_LIB([X11], [XOpenDisplay], [LIBS="$LIBS -lX11"], [{ { echo "$as_me:$LINENO: error: Could not find XOpenDisplay in -lX11." >&5
 echo "$as_me: error: Could not find XOpenDisplay in -lX11." >&2;}
    { (exit 1); exit 1; }; }
 ])
-m4trace:configure.in:71: -1- m4_pattern_forbid([^_?PKG_[A-Z_]+$])
-m4trace:configure.in:71: -1- m4_pattern_allow([^PKG_CONFIG(_PATH)?$])
-m4trace:configure.in:71: -1- AC_SUBST([PKG_CONFIG])
-m4trace:configure.in:71: -1- AC_SUBST([PKG_CONFIG], [$ac_cv_path_PKG_CONFIG])
-m4trace:configure.in:71: -1- AC_SUBST([ac_pt_PKG_CONFIG], [$ac_cv_path_ac_pt_PKG_CONFIG])
-m4trace:configure.in:71: -1- AC_SUBST([XML_CFLAGS])
-m4trace:configure.in:71: -1- AC_SUBST([XML_LIBS])
-m4trace:configure.in:82: -2- _m4_warn([cross], [cannot check for file existence when cross compiling], [autoconf/general.m4:2315: AC_CHECK_FILE is expanded from...
-configure.in:82: the top level])
-m4trace:configure.in:83: -1- _m4_warn([cross], [cannot check for file existence when cross compiling], [autoconf/general.m4:2315: AC_CHECK_FILE is expanded from...
-configure.in:83: the top level])
-m4trace:configure.in:86: -1- AC_DEFINE_TRACE_LITERAL([HAVE_BAT])
-m4trace:configure.in:86: -1- AH_OUTPUT([HAVE_BAT], [/* Define to 1 if you have acpi battery support */
+m4trace:configure.in:87: -1- m4_pattern_forbid([^_?PKG_[A-Z_]+$])
+m4trace:configure.in:87: -1- m4_pattern_allow([^PKG_CONFIG(_PATH)?$])
+m4trace:configure.in:87: -1- AC_SUBST([PKG_CONFIG])
+m4trace:configure.in:87: -1- AC_SUBST([PKG_CONFIG], [$ac_cv_path_PKG_CONFIG])
+m4trace:configure.in:87: -1- AC_SUBST([ac_pt_PKG_CONFIG], [$ac_cv_path_ac_pt_PKG_CONFIG])
+m4trace:configure.in:87: -1- AC_SUBST([XML_CFLAGS])
+m4trace:configure.in:87: -1- AC_SUBST([XML_LIBS])
+m4trace:configure.in:102: -2- _m4_warn([cross], [cannot check for file existence when cross compiling], [autoconf/general.m4:2315: AC_CHECK_FILE is expanded from...
+configure.in:102: the top level])
+m4trace:configure.in:103: -1- _m4_warn([cross], [cannot check for file existence when cross compiling], [autoconf/general.m4:2315: AC_CHECK_FILE is expanded from...
+configure.in:103: the top level])
+m4trace:configure.in:107: -1- AC_DEFINE_TRACE_LITERAL([HAVE_BAT])
+m4trace:configure.in:107: -1- AH_OUTPUT([HAVE_BAT], [/* Define to 1 if you have acpi battery support */
 #undef HAVE_BAT])
-m4trace:configure.in:89: -1- AM_CONDITIONAL([HAVE_BAT], [test "x$enable_bat" = xyes])
-m4trace:configure.in:89: -1- AC_PREREQ([2.52])
-m4trace:configure.in:89: -1- AC_SUBST([HAVE_BAT_TRUE])
-m4trace:configure.in:89: -1- AC_SUBST([HAVE_BAT_FALSE])
-m4trace:configure.in:124: -1- AC_DEFINE_TRACE_LITERAL([HAVE_XMMS])
-m4trace:configure.in:124: -1- AH_OUTPUT([HAVE_XMMS], [/* Define to 1 if you have libxmms support */
+m4trace:configure.in:110: -1- AM_CONDITIONAL([HAVE_BAT], [test "x$enable_bat" = xyes])
+m4trace:configure.in:110: -1- AC_PREREQ([2.52])
+m4trace:configure.in:110: -1- AC_SUBST([HAVE_BAT_TRUE])
+m4trace:configure.in:110: -1- AC_SUBST([HAVE_BAT_FALSE])
+m4trace:configure.in:145: -1- AC_DEFINE_TRACE_LITERAL([HAVE_XMMS])
+m4trace:configure.in:145: -1- AH_OUTPUT([HAVE_XMMS], [/* Define to 1 if you have libxmms support */
 #undef HAVE_XMMS])
-m4trace:configure.in:127: -1- AM_CONDITIONAL([HAVE_XMMS], [test "x$enable_xmms" = xyes])
-m4trace:configure.in:127: -1- AC_PREREQ([2.52])
-m4trace:configure.in:127: -1- AC_SUBST([HAVE_XMMS_TRUE])
-m4trace:configure.in:127: -1- AC_SUBST([HAVE_XMMS_FALSE])
-m4trace:configure.in:158: -1- AC_DEFINE_TRACE_LITERAL([HAVE_BMP])
-m4trace:configure.in:158: -1- AH_OUTPUT([HAVE_BMP], [/* Define to 1 if you have libbmp support */
+m4trace:configure.in:148: -1- AM_CONDITIONAL([HAVE_XMMS], [test "x$enable_xmms" = xyes])
+m4trace:configure.in:148: -1- AC_PREREQ([2.52])
+m4trace:configure.in:148: -1- AC_SUBST([HAVE_XMMS_TRUE])
+m4trace:configure.in:148: -1- AC_SUBST([HAVE_XMMS_FALSE])
+m4trace:configure.in:179: -1- AC_DEFINE_TRACE_LITERAL([HAVE_BMP])
+m4trace:configure.in:179: -1- AH_OUTPUT([HAVE_BMP], [/* Define to 1 if you have libbmp support */
 #undef HAVE_BMP])
-m4trace:configure.in:161: -1- AM_CONDITIONAL([HAVE_BMP], [test "x$enable_bmp" = xyes])
-m4trace:configure.in:161: -1- AC_PREREQ([2.52])
-m4trace:configure.in:161: -1- AC_SUBST([HAVE_BMP_TRUE])
-m4trace:configure.in:161: -1- AC_SUBST([HAVE_BMP_FALSE])
-m4trace:configure.in:168: -1- AC_DEFINE_TRACE_LITERAL([HAVE_DEBUG])
-m4trace:configure.in:168: -1- AH_OUTPUT([HAVE_DEBUG], [/* Define to 1 if you want debug support */
+m4trace:configure.in:182: -1- AM_CONDITIONAL([HAVE_BMP], [test "x$enable_bmp" = xyes])
+m4trace:configure.in:182: -1- AC_PREREQ([2.52])
+m4trace:configure.in:182: -1- AC_SUBST([HAVE_BMP_TRUE])
+m4trace:configure.in:182: -1- AC_SUBST([HAVE_BMP_FALSE])
+m4trace:configure.in:189: -1- AC_DEFINE_TRACE_LITERAL([HAVE_DEBUG])
+m4trace:configure.in:189: -1- AH_OUTPUT([HAVE_DEBUG], [/* Define to 1 if you want debug support */
 #undef HAVE_DEBUG])
-m4trace:configure.in:171: -1- AM_CONDITIONAL([HAVE_DEBUG], [test "x$enable_debug" = xyes])
-m4trace:configure.in:171: -1- AC_PREREQ([2.52])
-m4trace:configure.in:171: -1- AC_SUBST([HAVE_DEBUG_TRUE])
-m4trace:configure.in:171: -1- AC_SUBST([HAVE_DEBUG_FALSE])
-m4trace:configure.in:176: -1- AC_DEFINE_TRACE_LITERAL([PLUGIN_DIR])
-m4trace:configure.in:177: -1- AC_DEFINE_TRACE_LITERAL([SHARE_DIR])
-m4trace:configure.in:179: -1- AC_SUBST([plugindir])
-m4trace:configure.in:180: -1- AC_SUBST([sharedir])
-m4trace:configure.in:191: -1- AC_CONFIG_FILES([
+m4trace:configure.in:192: -1- AM_CONDITIONAL([HAVE_DEBUG], [test "x$enable_debug" = xyes])
+m4trace:configure.in:192: -1- AC_PREREQ([2.52])
+m4trace:configure.in:192: -1- AC_SUBST([HAVE_DEBUG_TRUE])
+m4trace:configure.in:192: -1- AC_SUBST([HAVE_DEBUG_FALSE])
+m4trace:configure.in:197: -1- AC_DEFINE_TRACE_LITERAL([PLUGIN_DIR])
+m4trace:configure.in:198: -1- AC_DEFINE_TRACE_LITERAL([SHARE_DIR])
+m4trace:configure.in:200: -1- AC_SUBST([plugindir])
+m4trace:configure.in:201: -1- AC_SUBST([sharedir])
+m4trace:configure.in:212: -1- AC_CONFIG_FILES([
 	Makefile
 	deskbar-config
 	libdeskbar.pc
@@ -744,7 +736,7 @@ m4trace:configure.in:191: -1- AC_CONFIG_FILES([
 	deskbar/Makefile
 	plugins/Makefile
 	xml/Makefile])
-m4trace:configure.in:191: -1- _m4_warn([obsolete], [AC_OUTPUT should be used without arguments.
+m4trace:configure.in:212: -1- _m4_warn([obsolete], [AC_OUTPUT should be used without arguments.
 You should run autoupdate.], [])
-m4trace:configure.in:191: -1- AC_SUBST([LIB@&t@OBJS], [$ac_libobjs])
-m4trace:configure.in:191: -1- AC_SUBST([LTLIBOBJS], [$ac_ltlibobjs])
+m4trace:configure.in:212: -1- AC_SUBST([LIB@&t@OBJS], [$ac_libobjs])
+m4trace:configure.in:212: -1- AC_SUBST([LTLIBOBJS], [$ac_ltlibobjs])

@@ -20,10 +20,10 @@
 #define HAVE_ALLOCA_H 1
 
 /* Define to 1 if you have the <argz.h> header file. */
-#define HAVE_ARGZ_H 1
+/* #undef HAVE_ARGZ_H */
 
 /* Define to 1 if you have acpi battery support */
-/* #undef HAVE_BAT */
+#define HAVE_BAT 1
 
 /* Define to 1 if you have libbmp support */
 #define HAVE_BMP 1
@@ -32,7 +32,7 @@
 /* #undef HAVE_BTOWC */
 
 /* Define to 1 if you want debug support */
-/* #undef HAVE_DEBUG */
+#define HAVE_DEBUG 1
 
 /* Define to 1 if you have the declaration of `getenv', and to 0 if you don't.
    */

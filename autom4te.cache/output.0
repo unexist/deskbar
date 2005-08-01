@@ -1053,6 +1053,7 @@ Optional Features:
   --enable-fast-install@<:@=PKGS@:>@ 
                           optimize for fast installation @<:@default=yes@:>@
   --disable-libtool-lock  avoid locking (might break parallel builds)
+  --enable-battery  Enable battery support
   --enable-debug	  Enable debugging support
   --disable-xmms	  Disable xmms plugin
   --disable-bmp		  Disable bmp plugin
@@ -5404,11 +5405,7 @@ done
 
 
 
-
-
-
-
-for ac_header in argz.h fcntl.h limits.h malloc.h memory.h stdlib.h string.h strings.h sys/time.h unistd.h
+for ac_header in fcntl.h limits.h malloc.h memory.h sys/time.h unistd.h
 do
 as_ac_Header=`echo "ac_cv_header_$ac_header" | $as_tr_sh`
 if eval "test \"\${$as_ac_Header+set}\" = set"; then
@@ -24661,20 +24658,32 @@ LIBTOOL='$(SHELL) $(top_builddir)/libtool'
 
 
 # Configure switches
-# Check whether --enable-enable-debug or --disable-enable-debug was given.
-if test "${enable_enable_debug+set}" = set; then
-  enableval="$enable_enable_debug"
-  debug="yes"
+# Check whether --enable-battery or --disable-battery was given.
+if test "${enable_battery+set}" = set; then
+  enableval="$enable_battery"
+  battery="$enableval"
+
 fi; 
-# Check whether --enable-disable-xmms or --disable-disable-xmms was given.
-if test "${enable_disable_xmms+set}" = set; then
-  enableval="$enable_disable_xmms"
-  xmms="yes"
+
+# Check whether --enable-debug or --disable-debug was given.
+if test "${enable_debug+set}" = set; then
+  enableval="$enable_debug"
+  debug="$enableval"
+
 fi; 
-# Check whether --enable-disable-bmp or --disable-disable-bmp was given.
-if test "${enable_disable_bmp+set}" = set; then
-  enableval="$enable_disable_bmp"
-  bmp="yes"
+
+# Check whether --enable-xmms or --disable-xmms was given.
+if test "${enable_xmms+set}" = set; then
+  enableval="$enable_xmms"
+  xmms="$enableval"
+
+fi; 
+
+# Check whether --enable-bmp or --disable-bmp was given.
+if test "${enable_bmp+set}" = set; then
+  enableval="$enable_bmp"
+  bmp="$enableval"
+
 fi; 
 
 # FIXME
@@ -24929,23 +24938,29 @@ if test $pkg_failed = yes; then
 	{ { echo "$as_me:$LINENO: error: The libxml2 library and headers >= 2.6.0 are required." >&5
 echo "$as_me: error: The libxml2 library and headers >= 2.6.0 are required." >&2;}
    { (exit 1); exit 1; }; }
+
 elif test $pkg_failed = untried; then
 	{ { echo "$as_me:$LINENO: error: The libxml2 library and headers >= 2.6.0 are required." >&5
 echo "$as_me: error: The libxml2 library and headers >= 2.6.0 are required." >&2;}
    { (exit 1); exit 1; }; }
+
 else
 	XML_CFLAGS=$pkg_cv_XML_CFLAGS
 	XML_LIBS=$pkg_cv_XML_LIBS
 	CFLAGS="$CFLAGS $XML_CFLAGS"
-	
-LIBS="$LIBS $XML_LIBS"
+	LIBS="$LIBS $XML_LIBS"
 fi
 
 ### Plugin check
 # Battery
 enable_bat=no
 
-echo "$as_me:$LINENO: checking for /proc/acpi/battery/BAT0/info" >&5
+if test "x$battery" = "xyes"; then
+	enable_bat=yes
+	{ echo "$as_me:$LINENO: WARNING: Battery check overridden: Building battery plugin nevertheless!" >&5
+echo "$as_me: WARNING: Battery check overridden: Building battery plugin nevertheless!" >&2;}
+else
+	echo "$as_me:$LINENO: checking for /proc/acpi/battery/BAT0/info" >&5
 echo $ECHO_N "checking for /proc/acpi/battery/BAT0/info... $ECHO_C" >&6
 if test "${ac_cv_file__proc_acpi_battery_BAT0_info+set}" = set; then
   echo $ECHO_N "(cached) $ECHO_C" >&6
@@ -24985,14 +25000,15 @@ echo "${ECHO_T}$ac_cv_file__proc_acpi_battery_BAT1_info" >&6
 if test $ac_cv_file__proc_acpi_battery_BAT1_info = yes; then
   enable_bat=yes
 else
-  { echo "$as_me:$LINENO: WARNING: Building without battery plugin" >&5
-echo "$as_me: WARNING: Building without battery plugin" >&2;}
+  { echo "$as_me:$LINENO: WARNING: Building without battery plugin. Use \`--enable-battery\` to override." >&5
+echo "$as_me: WARNING: Building without battery plugin. Use \`--enable-battery\` to override." >&2;}
+		
+fi
+
 	
 fi
 
-
 fi
-
 
 if test "x$enable_bat" = "xyes"; then
 	
@@ -25036,7 +25052,7 @@ EOF
 
 ${CC} -o conftest conftest.c ${glibcflags} ${gliblibs} >&5 2>&1
 
-if test "$?" != 0 && test "x$xmms" != "x"; then
+if test "$?" != 0 && test "x$xmms" != "xyes"; then
 	echo "$as_me:$LINENO: result: no" >&5
 echo "${ECHO_T}no" >&6
 	{ echo "$as_me:$LINENO: WARNING: Building without XMMS plugin" >&5
@@ -25087,7 +25103,7 @@ EOF
 
 ${CC} -o conftest conftest.c ${glibcflags} ${gliblibs} >&5 2>&1
 
-if test "$?" != 0 && test "x$bmp" != "x"; then
+if test "$?" != 0 && test "x$bmp" != "xyes"; then
 	echo "$as_me:$LINENO: result: no" >&5
 echo "${ECHO_T}no" >&6
 	{ echo "$as_me:$LINENO: WARNING: Building without BMP plugin" >&5
@@ -26966,8 +26982,6 @@ fi
 echo
 echo $PACKAGE_STRING
 echo -----------------
-echo Paths:
-echo --------
 echo Binary....................: $prefix/bin
 echo Lib.......................: $prefix/lib
 echo Plugins...................: $plugindir
@@ -26980,8 +26994,9 @@ echo Battery Plugin............: $enable_bat
 echo XMMS Plugin...............: $enable_xmms
 echo BMP Plugin................: $enable_bmp
 echo
-echo Misc:
+echo Debug:
 echo ------
+echo Debug Plugin..............: $enable_debug
 echo Debugging messages........: $enable_debug
 echo
 echo Try 'make' now, good luck!
