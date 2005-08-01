@@ -56,7 +56,7 @@ battery_create (void)
 }
 
 void
-battery_update (void)
+battery_update (void *attrs)
 {
 	int capacity	= 0,
 			percent		= 0;

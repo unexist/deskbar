@@ -35,10 +35,14 @@ db_log (short type,
 				break;
 
 			case 2:
-				fprintf (stderr, "ERROR: %s", buf);
+				fprintf (stdout, "WARNING: %s", buf);
 				break;
 
 			case 3:
+				fprintf (stderr, "ERROR: %s", buf);
+				break;
+
+			case 4:
 				fprintf (stdout, "%s,%d: %s", file, line, buf);
 		}
 	

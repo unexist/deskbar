@@ -38,7 +38,7 @@ db_htable_push (DbHtable *table,
 	if (element)
 		{
 			element->hash		= db_strings_hash ((char *) key);
-			element->value	= value;
+			element->value	= strdup (value);
 			element->prev		= NULL;
 			element->next		= NULL;
 			
@@ -109,7 +109,6 @@ remove_element (DbHtable *table,
 		}
 }
 
-
 void *
 db_htable_pop (DbHtable *table,
 	void *key)
@@ -150,6 +149,7 @@ db_htable_destroy (DbHtable *table)
 		{
 			next = cur->next;
 
+			free (cur->value);
 			free (cur);
 			
 			cur = next;

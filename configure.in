@@ -41,7 +41,9 @@ AC_CONFIG_SUBDIRS(libltdl)
 AM_PROG_LIBTOOL
 
 # Configure switches
-AC_ARG_ENABLE(debug, [  --debug	  Compile the debug plugin], debug="$enableval")
+AC_ARG_ENABLE(enable-debug, [  --enable-debug	  Enable debugging support], 	debug="$enableval")
+AC_ARG_ENABLE(disable-xmms, [  --disable-xmms	  Disable xmms plugin],				xmms="$enableval")
+AC_ARG_ENABLE(disable-bmp,	[  --disable-bmp		  Disable bmp plugin],			bmp="$enableval")
 
 # FIXME
 prefix="/usr/local"
@@ -64,7 +66,8 @@ AC_CHECK_LIB(X11, XOpenDisplay,
 # Check for libxml support 
 PKG_CHECK_MODULES(XML, libxml-2.0 >= 2.6.0,
 	CFLAGS="$CFLAGS $XML_CFLAGS"
-	LIBS="$LIBS $XML_LIBS",
+	
+LIBS="$LIBS $XML_LIBS",
 	AC_MSG_ERROR([The libxml2 library and headers >= 2.6.0 are required.]))
 
 ### Plugin check
@@ -75,6 +78,7 @@ AC_CHECK_FILE(/proc/acpi/battery/BAT0/info,
 	enable_bat=yes,
 	AC_CHECK_FILE(/proc/acpi/battery/BAT1/info,
 		enable_bat=yes,
+		AC_MSG_WARN([Building without battery plugin])
 	)
 )
 
@@ -106,7 +110,7 @@ EOF
 
 ${CC} -o conftest conftest.c ${glibcflags} ${gliblibs} >&5 2>&1
 
-if test "$?" != 0; then
+if test "$?" != 0 && test "x$xmms" != "x"; then
 	AC_MSG_RESULT(no)
 	AC_MSG_WARN([Building without XMMS plugin])
 else
@@ -140,7 +144,7 @@ EOF
 
 ${CC} -o conftest conftest.c ${glibcflags} ${gliblibs} >&5 2>&1
 
-if test "$?" != 0; then
+if test "$?" != 0 && test "x$bmp" != "x"; then
 	AC_MSG_RESULT(no)
 	AC_MSG_WARN([Building without BMP plugin])
 else
@@ -150,7 +154,7 @@ fi
 
 rm -f conftest conftest.c
 
-if test "x$enable_bmp" = "xyes"; then
+if test "x$enable_bmp"; then
 	AC_DEFINE(HAVE_BMP, 1, [Define to 1 if you have libbmp support])
 fi
 
@@ -167,8 +171,13 @@ fi
 AM_CONDITIONAL(HAVE_DEBUG, test "x$enable_debug" = xyes)
 
 plugindir=$prefix/lib/$PACKAGE_NAME
+sharedir=$prefix/share/$PACKAGE_NAME
+
 AC_DEFINE_UNQUOTED(PLUGIN_DIR, "$plugindir")
+AC_DEFINE_UNQUOTED(SHARE_DIR, "$sharedir")
+
 AC_SUBST(plugindir)
+AC_SUBST(sharedir)
 
 AC_OUTPUT([
 	Makefile
@@ -184,20 +193,23 @@ AC_OUTPUT([
 echo
 echo $PACKAGE_STRING
 echo -----------------
+echo Paths:
+echo --------
+echo Binary....................: $prefix/bin
+echo Lib.......................: $prefix/lib
+echo Plugins...................: $plugindir
+echo Shares \(dtd/xml\)..........: $sharedir
+echo
 echo Plugins:
-echo Common Plugins................: Clock CPU Date
-echo Battery Plugin................: $enable_bat
-echo XMMS Plugin...................: $enable_xmms
-echo BMP Plugin....................: $enable_bmp
+echo ----------
+echo Common Plugins............: Time CPU 
+echo Battery Plugin............: $enable_bat
+echo XMMS Plugin...............: $enable_xmms
+echo BMP Plugin................: $enable_bmp
 echo
-echo Debugging messages............: $enable_debug
-echo
-echo The binary will be installed in $prefix/bin,
-echo the lib in $prefix/lib and the plugins 
-echo in $plugindir.
-echo
-echo Xml and dtd files will be installed in 
-echo $prefix/share.
+echo Misc:
+echo ------
+echo Debugging messages........: $enable_debug
 echo
 echo Try 'make' now, good luck!
 echo

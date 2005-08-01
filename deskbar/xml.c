@@ -6,187 +6,202 @@
 #include "display.h"
 #include "plug.h"
 
+#include <libxml/xmlversion.h>
+#include <libxml/xmlreader.h>
+#include <libxml/parser.h>
+
 #include "libdeskbar/htable.h"
 #include "libdeskbar/log.h"
 
-static char **
-parse_line (char *line)
-{
-	int q = 0;
-	
-	int toks_len	= 5;
-	int buf_len		= 2;
-
-	char *buf		= NULL;
-	char **toks	= NULL;
-
-	int b = 0;
-	int t = 0;
-
-	do
-		{
-			switch (*line)
-				{
-					/* Skip comments */
-					case '#':
-						if (!q)
-							return (NULL);
-							
-					/* Skip special chars */
-					case '\t':
-						break;
-					
-					/* Skip other chars if not quoted*/
-					case '<':
-					case '>':
-					case '/':
-					case '?':
-						if (!q)
-							break;
-
-					/* Quotes */
-					case '"':
-						q = !q;
-						break;
-						
-					case ' ':
-					case '=':
-					case '\n':
-						if (!q)
-							{
-								if (buf)
-									{
-										toks_len += 5;
-										toks			= (char **) realloc (toks, toks_len);
-
-										if (toks)
-											{
-												toks[t++] = buf;
-												toks[t]		= NULL;
-												
-												buf = NULL;
-												b		= 0;
-											}
-									}
-
-								break;
-							}
-						
-					default:
-						buf_len += 2;
-						buf			 = (char *) realloc (buf, buf_len);
-
-						if (buf)
-							{
-								buf[b++]	= *line;
-								buf[b]		= '\0';
-							}
-				}
-		}	
-	while (*line++ != '\n');
-
-	return (toks);
-}
+#ifdef HAVE_CONFIG_H
+	#include "config.h"
+#endif
 
 static void
-handle_toks (char **toks)
+error_handler (void *arg,
+	const char *msg,
+	xmlParserSeverities severity,
+	xmlTextReaderLocatorPtr locator)
 {
-	int i;
-
-	DbHtable *table = NULL;
+	int line;
+	unsigned int n, col;
 	
-	if (toks)
+	const xmlChar *cur	= NULL;
+	const xmlChar *base = NULL;
+
+	xmlChar *ctnt = NULL;
+	xmlChar content[81];
+
+	xmlParserCtxtPtr ctx;
+
+	line = xmlTextReaderLocatorLineNumber (locator);
+
+	/* Heavily based on the internal libxml error handler */
+	ctx = (xmlParserCtxtPtr) locator;
+	cur = ctx->input->cur;
+	
+	while ((cur > base) && ((*(cur) == '\n') || (*(cur) == '\r'))) 
+	  cur--;
+	n = 0;
+	
+	while ((n++ < (sizeof (content) - 1)) && (cur > base) &&
+		(*(cur) != '\n') && (*(cur) != '\r'))
+		cur--;
+		
+	if ((*(cur) == '\n') || (*(cur) == '\r')) 
+		cur++;
+	
+	col = ctx->input->cur - cur;
+	
+	n = 0;
+	ctnt = content;
+	
+	while ((*cur != 0) && (*(cur) != '\n') &&
+		(*(cur) != '\r') && (n < sizeof (content) - 1)) 
+	{
+		*ctnt++ = *cur++;
+  	n++;
+	}
+	
+	*ctnt = 0;
+	
+	db_log_err ("%s\n", content);
+		
+	n = 0;
+	ctnt = content;
+	
+	while ((n < col) && (n++ < sizeof (content) - 2) && (*ctnt != 0))
 		{
-			table = db_htable_new ();
+			if (*(ctnt) != '\t')
+				*(ctnt) = ' ';
+				ctnt++;
+		}
+		
+	*ctnt++ = '^';
+	*ctnt		= 0;
+	
+	db_log_err ("%s\n", content);
+		
+	switch (severity)
+		{
+			case 3:
+			case 4:
+				db_log_err ("Line %d, Char %d: %s", line, col, msg);
+				break;
 
-			for (i = 1; toks[i] != NULL; i++)
-				{
-					db_htable_push (table, (void *) toks[i], (void *) toks[i + 1]);
-					i++;
-				}
-
-			if (!strcmp (toks[0], "plugin"))
-				{
-					db_plug_load (table);
-				}
-			else if (!strcmp (toks[0], "text"))
-				{
-					db_display_obj_new (DB_OBJ_TEXT, table);
-
-				}
-			else if (!strcmp (toks[0], "meter"))
-				{
-					db_display_obj_new (DB_OBJ_METER, table);
-				}
-
-			db_htable_destroy (table);
+			default:
+				db_log_debug ("Validation not implemented yet\n");
 		}
 }
 
 static void
-cleanup (char **toks)
+parse_node (xmlTextReaderPtr reader)
 {
-	int i;
+	xmlChar *name		= NULL;
+	xmlChar *attrib	= NULL;
+	xmlChar *value	= NULL;
 
-	if (toks)
-		{
-			for (i = 0; toks[i] != NULL; i++)
-				free (toks[i]);
+	DbHtable *table = NULL;
 	
-		free (toks);
+	name = xmlTextReaderLocalName (reader);
 
-		toks = NULL;
+	if (xmlTextReaderHasAttributes (reader))
+		{
+			xmlTextReaderMoveToFirstAttribute (reader);
+
+			table = db_htable_new ();
+
+			do
+				{
+					attrib 	= xmlTextReaderLocalName (reader);
+					value		= xmlTextReaderValue (reader);
+
+					db_htable_push (table, (void *) attrib, (void *) value);
+
+					xmlFree (attrib);
+					xmlFree (value);
+				}
+			while (xmlTextReaderMoveToNextAttribute (reader));
+		
+		/* Checking configuration version */
+		if (!strcmp (name, "display"))
+			{
+				if (strcmp (db_htable_pop (table, "version"), PACKAGE_VERSION))
+					{
+						db_log_warn ("Configuration version mismatch: %s vs. %s!\n", 
+							db_htable_pop (table, "version"), PACKAGE_VERSION)
+					}
+			}
+		else if (!strcmp (name, "plugin"))
+			{
+				db_plug_load (table);
+			}
+		else if (!strcmp (name, "text"))
+			{
+				db_display_obj_new (DB_OBJ_TEXT, table);
+			}
+		else if (!strcmp (name, "meter"))
+			{
+				db_display_obj_new (DB_OBJ_METER, table);
+			}
+
+		db_htable_destroy (table);
 	}
+	
+	xmlFree (name);
 }
-					
+
+void
+db_xml_version (void)
+{
+	LIBXML_TEST_VERSION;
+
+	db_log_mesg ("Using libxml v%s\n", LIBXML_DOTTED_VERSION);
+}
+
 int
 db_xml_parse_file (char *rc_file)
 {
-	FILE *fd = NULL;
+	int ret;
 
-	char file[120];
-	char buf[255];
-
-	char **toks	= NULL;
-
+	char file[100];
+	
+	xmlTextReaderPtr reader;
+	
 	if (rc_file)
 		snprintf (file, sizeof (file), "%s", rc_file);
 	else
 		snprintf (file, sizeof (file), "%s/.deskbarrc", getenv ("HOME"));
 
 	db_log_mesg ("Reading %s\n", file);
+	
+	reader = xmlReaderForFile (&file, NULL, 0);
 
-	fd = fopen (file, "r");
-
-	if (!fd)
+	/* Set error handler */
+	xmlTextReaderSetErrorHandler (reader, error_handler, NULL);
+	
+	if (reader) 
 		{
-			switch (errno)
-				{
-					case EISDIR:
-						db_log_err ("File `%s' is a directory?\n", file);
-						break;
-
-					case ENOENT:
-						db_log_err ("Unable to find configuration!\n");
-						break;
-
-					default:
-						db_log_debug ("Unhandled event? Damn..\n");
-				}
-
-			return (-1);
-		}
-
-	while (fgets (buf, sizeof (buf), fd))
-		{
-			toks = parse_line (buf);
+			ret = xmlTextReaderRead (reader);
 			
-			handle_toks (toks);
-
-			cleanup (toks);
+			while (ret == 1)
+				{
+					parse_node (reader);
+					ret = xmlTextReaderRead (reader);
+				}
+				
+			xmlFreeTextReader (reader);
+	
+			if (ret != 0)
+				db_log_err ("Failed to parse `%s'!\n", file);
 		}
-
-	fclose (fd);
+	else
+		{
+			db_log_err ("Unable to open `%s'!\n", file);
+		}
+		
+	xmlCleanupParser ();
+	xmlMemoryDump ();
 
 	return (0);
 }

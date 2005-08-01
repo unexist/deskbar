@@ -8,25 +8,27 @@ typedef struct dbplug_t
 	char *name;
 	
 	void (*create) (void);
-	void (*update) (void);
+	void (*update) (void *);
 	void (*destroy) (void);
 
 	char *data;
-	char *format;
 
 	int interval;	
 } DbPlug;
 
 typedef struct dbplugelement_t
 {
+	unsigned long id;
+
 	void *handle;
+	void *options;
 
 	double updated;
 
 	struct dbplug_t *data;
 } DbPlugElement;
 
-typedef void (*DbPlugFunc) (void);
+typedef void (*DbPlugFunc) (void *);
 
 int db_plug_get_interval (void);
 
@@ -37,6 +39,6 @@ void db_plug_destroy (void);
 void db_plug_unload (DbPlugElement *element);
 void db_plug_unload_all (void);
 
-char *db_plug_get_by_name (char *name);
+void *db_plug_get_by_name (char *name);
 
 #endif /* DB_PLUG_H */

@@ -13,22 +13,15 @@ static DbPlug *plug = NULL;
 static char data[50];
 
 void
-time_create (void)
+time_update (void *options)
 {
-	if (!plug->format)
-		plug->format = "%H:%M";
-}
-
-void
-time_update (void)
-{
-	strftime (data, sizeof (data), plug->format, db_time_local ());
+	strftime (data, sizeof (data), (char *) options, db_time_local ());
 }
 
 static DbPlug plugin =
 {
 	"Time",					/* Plugin name 							*/
-	time_create,		/* Plugin create function		*/
+	NULL,						/* Plugin create function		*/
 	time_update,		/* Plugin update function		*/
 	NULL,						/* Plugin destroy function	*/
 

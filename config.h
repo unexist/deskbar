@@ -23,7 +23,7 @@
 #define HAVE_ARGZ_H 1
 
 /* Define to 1 if you have acpi battery support */
-#define HAVE_BAT 1
+/* #undef HAVE_BAT */
 
 /* Define to 1 if you have libbmp support */
 #define HAVE_BMP 1
@@ -32,7 +32,7 @@
 /* #undef HAVE_BTOWC */
 
 /* Define to 1 if you want debug support */
-#define HAVE_DEBUG 1
+/* #undef HAVE_DEBUG */
 
 /* Define to 1 if you have the declaration of `getenv', and to 0 if you don't.
    */
@@ -89,7 +89,7 @@
 /* #undef HAVE_NDIR_H */
 
 /* Define to 1 if you have PNG support */
-#define HAVE_PNG 1
+/* #undef HAVE_PNG */
 
 /* Define to 1 if your system has a GNU libc compatible `realloc' function,
    and to 0 otherwise. */
@@ -176,7 +176,7 @@
 #define HAVE_XMMS 1
 
 /* Define to 1 if you have ZLIB support */
-#define HAVE_ZLIB 1
+/* #undef HAVE_ZLIB */
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT "unexist@hilflos.org"
@@ -185,13 +185,13 @@
 #define PACKAGE_NAME "deskbar"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "deskbar 0.1"
+#define PACKAGE_STRING "deskbar 0.2"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "deskbar"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "0.1"
+#define PACKAGE_VERSION "0.2"
 
 /* Define to the plugin directoy */
 #define PLUGIN_DIR "/usr/local/lib/deskbar"

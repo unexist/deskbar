@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <dlfcn.h>
+#include <string.h>
 #include <setjmp.h>
 
 #include "plug.h"
@@ -20,23 +20,20 @@
 
 static int interval = 0;
 
-static DbList *pluglist			= NULL;
-static DbHtable *plugtable	= NULL;
+static DbList *pluglist	= NULL;
 
 static int
-save_call (DbPlugElement *element,
-	DbPlugFunc plugfunc,
-	const char *name)
+safe_call (DbPlugElement *element,
+	DbPlugFunc plugfunc)
 {
 	if (plugfunc)
 		{
 			if (setjmp (env) == 0)
-				plugfunc ();
+				plugfunc (element->options);
 			else
 				{
 					db_log_mesg ("Ayyyee! Segmentation fault in plugin %s!\n", 
 											 element->data->name);
-					db_log_debug ("Call to %s () failed\n", name);
 					db_plug_unload (element);
 
 					return (1);
@@ -87,12 +84,11 @@ db_plug_init (void)
 void
 db_plug_load (DbHtable *table)
 {
-	int intval;
 	int update;
 
 	char *err			= NULL;
 	char *file		= NULL;
-	char *format	= NULL;
+	char *check		= NULL;
 
 	char buf[120];
 
@@ -100,7 +96,7 @@ db_plug_load (DbHtable *table)
 	
 	DbPlugElement *element = NULL;
 
-	element = (DbPlugElement *) malloc (sizeof (DbPlugElement));
+	element = (DbPlugElement *) calloc (1, sizeof (DbPlugElement));
 
 	if (!element)
 		{
@@ -108,11 +104,16 @@ db_plug_load (DbHtable *table)
 
 			return;
 		}
-	
-	/* Get data from the table */
-	file		= (char *) db_htable_pop (table, "name");
-	format	= (char *) db_htable_pop (table, "format");
-	intval	= atoi (db_htable_pop (table, "interval"));
+
+	/* Get file name */
+	file = (char *) db_htable_pop (table, "name");
+
+	if (!file)
+		{
+			db_log_err ("Cannot open plugin!\n");
+
+			return;
+		}
 
 	db_strings_tolower (file);
 
@@ -134,11 +135,32 @@ db_plug_load (DbHtable *table)
 	entrypoint		= dlsym (element->handle, "db_plug_init");
 	element->data	= (*entrypoint) ();
 		
-	/* Setup plugin */
-	element->data->interval = intval;
+	/* Validate id */
+	check = db_htable_pop (table, "id");
 
-	if (format)
-		element->data->format = strdup (format);
+	if (check)
+		element->id = db_strings_hash (check);
+	else
+		element->id = db_strings_hash (file);
+		
+	/* Validate interval */
+	check = db_htable_pop (table, "interval");
+
+	if (check)
+		element->data->interval = atoi (check);
+	else
+		element->data->interval = 2;
+	
+	if (interval == 0)
+		interval = element->data->interval;
+	else
+		interval = get_gcd (interval, element->data->interval);
+	
+	/* Validate options */
+	check = db_htable_pop (table, "options");
+
+	if (check)
+		element->options = strdup (check);
 
 	db_list_insert (pluglist, (void *) element);
 
@@ -146,20 +168,14 @@ db_plug_load (DbHtable *table)
 		element->data->name, element->data->interval);
 
 	/* Call plugin create/update functions */
-	save_call (element, element->data->create, "create");
-	save_call (element, element->data->update, "update");
+	safe_call (element, element->data->create);
+	safe_call (element, element->data->update);
 							
 	/* Update times */
 	update	= db_time_current ();
 	update += (60 - (update % 60));
 
 	element->updated = (update + element->data->interval);
-		
-	/* Update internal time */
-	if (interval == 0)
-		interval = element->data->interval;
-	else
-		interval = get_gcd (interval, element->data->interval);
 }
 
 static void
@@ -172,7 +188,7 @@ update_plug (void *data,
 
 	if (db_time_update_time () >= (element->updated + db_time_update_diff ()))
 		{
-			if (save_call (element, (DbPlugFunc) element->data->update, "update"))
+			if (safe_call (element, (DbPlugFunc) element->data->update))
 				return;
 
 			element->updated = (db_time_update_time () + element->data->interval);
@@ -209,12 +225,13 @@ destroy_data (void *data,
 
 	db_mem_pool_destroy (element->data);
 
-	if (element->data->format)
-		free (element->data->format);
+	if (element->options)
+		free (element->options);
 
 	db_log_mesg ("Unloaded plugin %s\n", element->data->name);
 
-	dlclose (element->handle);
+	if (element->handle)
+		dlclose (element->handle);
 
 	free (element);
 }
@@ -236,27 +253,32 @@ static int
 get_plug (void *data,
 	void *func_data)
 {
-	char *name = NULL;
+	unsigned long id;
 	
 	DbPlugElement *element = NULL;
 	
 	element = (DbPlugElement *) data;
-	name		= (char *) func_data;
+	id			= *(unsigned long *) func_data;
 
-	//printf ("Cmp %s <=> %s?\n", name, element->data->name);
-
-	return (strcmp (element->data->name, name));
+	if (element->id == id)
+		return (0);
+	else
+		return (1);
 }
 
-char *
+void *
 db_plug_get_by_name (char *name)
 {
-	DbPlugElement *element = NULL;
+	unsigned long id;
 	
-	element = (DbPlugElement *) db_list_find (pluglist, get_plug, (void *) name);
+	DbPlugElement *element = NULL;
+
+	id = db_strings_hash (name);
+	
+	element = (DbPlugElement *) db_list_find (pluglist, get_plug, (void *) &id);
 
 	if (element)
 		return (element->data->data);
 	else
-		return ("ERROR");
+		return (NULL);
 }

@@ -50,7 +50,7 @@ cpu_create (void)
 }
 
 void
-cpu_update (void)
+cpu_update (void *attrs)
 {
 	unsigned int user		= 0, 
 							 nice		= 0,

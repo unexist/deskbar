@@ -8,7 +8,6 @@
 #include <errno.h>
 
 #include "display.h"
-#include "lpng.h"
 #include "plug.h"
 #include "sig.h"
 #include "xml.h"
@@ -107,11 +106,9 @@ main (int argc,
 
 	version ();
 
+	db_xml_version ();
+	
 	db_sig_register ();
-
-#ifdef HAVE_PNG
-	db_lpng_version ();
-#endif
 
 	db_display_init ();
 	db_plug_init ();

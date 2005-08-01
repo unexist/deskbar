@@ -18,7 +18,7 @@ oom_create (void)
 }
 
 void
-oom_update (void)
+oom_update (void *attrs)
 {
 	int i;
 

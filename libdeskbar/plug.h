@@ -6,7 +6,7 @@ typedef struct dbplug_t
 	char *name;
 	
 	void (*create) (void);
-	void (*update) (void);
+	void (*update) (void *);
 	void (*destroy) (void);
 
 	char *data;

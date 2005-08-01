@@ -157,7 +157,7 @@ db_display_obj_new (DbObjType type,
 				if (value)
 					obj->value	= strdup (value);
 				else if (data)
-					obj->data		= db_plug_get_by_name (data);
+					obj->data = db_plug_get_by_name (data);
 				else
 					{
 						db_log_err ("Malformed configuration data!\n");
@@ -180,7 +180,7 @@ db_display_obj_new (DbObjType type,
 				obj->h = atoi (db_htable_pop (table, "height"));
 
 				if (data)
-					obj->data	= db_plug_get_by_name (data);
+					obj->data = db_plug_get_by_name (data);
 				else
 					{
 						db_log_err ("Malformed configuration data!\n");
