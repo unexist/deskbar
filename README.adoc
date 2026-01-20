@@ -1,0 +1,15 @@
+= deskbar
+
+A lightweight, modular system monitor.
+Just xlib based with optional PNG support. (Deps can vary with the plugins)
+
+== Screenshots
+
+image::docs/screenshots/deskbar-08-04-05.png[deskbar 08-04-05]
+image::docs/screenshots/deskbar-14-04-05-bars.png[deskbar 14-04-05]
+image::docs/screenshots/deskbar-05-05-2005.png[deskbar 05-05-05]
+
+== Links
+
+- https://sourceforge.net/projects/deskbar/
+- https://deskbar.sourceforge.net/
