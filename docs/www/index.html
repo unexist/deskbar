@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">	 
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+		<title>Deskbar - The Lightweight Monitor</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+
+	<body>
+		<div class="top">
+			<h1>Deskbar</h1>				
+			<div class="navi_left"><h2>The Lightweight Monitor</h2></div>
+			<div class="navi_right">
+				<a class="navi" href="index.html"> Home </a>|
+				<a class="navi" href="#"> Documentation </a>|
+				<a class="navi" href="api.html"> API </a>|
+				<a class="navi" href="#"> Plugins </a>|
+				<a class="navi" href="#"> Download </a>|
+				<a class="navi" href="#"> Screenshots </a>
+			</div>
+		</div>
+
+		<div class="left">
+			<h3>What is deskbar?</h3>
+			<p>
+				Deskbar is a lightweight system monitor without large dependancies to
+				other libraries or toolkits. It's completely build on top of the Xlib.
+				The output will be written directly to the root window, so the placing
+				and all other configuration is done via a XML based configuration file.
+			</p>
+			<p>
+				At the moment there's only the display of text possibly, support for PNG 
+				is planned but not implemented yet. This will be optional and may be 
+				excluded at compile time.
+			</p>
+		</div>
+		
+		<div class="mid">
+			<h3>What does it do?</h3>
+			<p>
+				Deskbar is pluggable, so it's features depend on the loaded plugins. 
+				Without any <a class="inline" href="">plugins</a> there isn't much to
+				tell about. The reason for this behaviour is easy: The aim is to be as
+				lightweight as possible, so e.g. if you don't need a 
+				<a class="inline" href="">clock</a> why should we load/run the update
+				code for it?
+			</p>
+			<p>
+				Currently it consists of the main application, a library and a config
+				script to build plugins outside of the tree and of course some basic 
+				<a class="inline" href="">plugins</a>. (More will follow)
+			</p>
+		</div>
+	
+		<div class="right">
+			<div class="box_title">Features</div>
+			<div class="box_content">
+				<h4>Smart Iterations</h4>
+				<p>
+					Whenever a plugin is loaded, an interval time for the update cycle of the
+					plugin is required. It's possibly to set it in the config file or to use the
+					default time. After the loading of every plugin is completed, the interval
+					time of the main cycle will be computed. The main loop cycles in the calculated
+					time.
+				</p>
+
+				<h4>Exception Handling</h4>
+				<p>
+					A common problem with plugin based monitors is the reliability of these plugins.
+					Normally, whenever a plugin 'misbehaves' the whole program dies. Deskbar catches
+					the segmentation fault and ejects the plugin. Allocated memory will be free'd, if
+					the alloc functions of the <a class="inline" href="">API</a> are used.
+				</p>
+
+				<h4>Garbage Collection</h4>
+				<p>
+					The <a class="inline" href="">API</a> contains different allocation functions, 
+					every allocation will be stored inside of a lookup table and free'd automagically
+					on program termination. Optionally: The table can be drawn to the commandline at
+					program exit.
+				</p>
+			</div>
+		</div>
+
+		<div class="bottom">
+			<h3>Latest News</h3>
+			<h2>2005-06-16 11:55</h2>
+			<p>
+				After a long time and lots of lines of code i decided to skip my own XML-parser and 
+				use the one braught with the libxml. It's easier interface and handling allows a 
+				better error handling and a clean code.
+				Meanwhile a lot of things in the API have been changed or are in progress.
+			<p>
+		</div>
+
+		<div class="baseline">
+			Copyright (c) 2005, Christoph Kappel <unexist@hilflos.org>
+			Released under the GNU Public License
+				
+			<p><a href="http://sourceforge.net"><img src="http://sourceforge.net/sflogo.php?group_id=125495&amp;type=1" align="absmiddle" alt="SourceForge.net Logo" width="88" height="31" border="0" /></p>
+		</div>
+
+	</body>
+
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">	 
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+		<title>Deskbar - The Lightweight Monitor</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+
+	<body>
+		<div class="top">
+			<h1>Deskbar</h1>				
+			<div class="navi_left"><h2>The Lightweight Monitor</h2></div>
+			<div class="navi_right">
+				<a class="navi" href="index.html"> Home </a>|
+				<a class="navi" href="#"> Documentation </a>|
+				<a class="navi" href="api.html"> API </a>|
+				<a class="navi" href="#"> Plugins </a>|
+				<a class="navi" href="#"> Download </a>|
+				<a class="navi" href="#"> Screenshots </a>
+			</div>
+		</div>
+
+		<div class="right">
+			<div class="box_title">Overview</div>
+			<div class="box_content">
+				<h4>Htable</h4>
+				<p>
+					<a class="api" href="#db_htable_new">db_htable_new ()</a><br />
+					<a class="api" href="#db_htable_push">db_htable_push ()</a><br />
+					<a class="api" href="#db_htable_pop">db_htable_pop ()</a><br />
+					<a class="api" href="#db_htable_destroy">db_htable_destroy ()</a>
+				</p>
+
+				<h4>List</h4>
+				<p>
+					<a class="api" href="#db_list_new">db_list_new ()</a><br />
+					<a class="api" href="#db_list_insert">db_list_insert ()</a><br />
+					<a class="api" href="#db_list_remove">db_list_remove ()</a><br />
+					<a class="api" href="#db_list_foreach">db_list_foreach ()</a><br />
+					<a class="api" href="#db_list_find">db_list_find ()</a><br />
+					<a class="api" href="#db_list_destroy">db_list_destroy ()</a>
+				</p>
+			
+				<h4>Log</h4>
+				<p>
+					<a class="api" href="#db_log_mesg">db_log_mesg ()</a><br />
+					<a class="api" href="#db_log_err">db_log_err ()</a><br />
+					<a class="api" href="#db_log_debug">db_log_debug ()</a>
+				</p>
+				
+				<h4>Mem</h4>
+				<p>
+					<a class="api" href="#db_mem_alloc">db_mem_alloc ()</a><br />
+					<a class="api" href="#db_mem_free">db_mem_free ()</a>
+				</p>
+
+				<h4>String</h4>
+				<p>
+					<a class="api" href="#db_string_hash">db_string_hash ()</a><br />
+					<a class="api" href="#db_string_tolower">db_string_tolower ()</a><br />
+					<a class="api" href="#db_string_toupper">db_string_toupper ()</a>
+				</p>
+
+				<h4>Time</h4>
+				<p>
+					<a class="api" href="#db_time_local">db_time_local ()</a><br />
+					<a class="api" href="#db_time_current">db_time_current ()</a><br />
+					<a class="api" href="#db_time_delta">db_time_delta ()</a><br />
+					<a class="api" href="#db_time_update_diff">db_time_update_diff ()</a><br />
+					<a class="api" href="#db_time_update_time">db_time_update_time ()</a>
+				</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<a id="top"></a>
+
+			<!-- Hash table start //-->
+			<h3>Htable</h4>
+			<p class="synop">#include &lt;htable.h&gt;</p>
+			<p>
+				Hash tables provide an easy way to associate key - value pairs. A hash function genereates a
+				hash value from the given key. Both the newly created hash and the address of the value are stored
+				inside of the table. <br />
+				Note: No data will be copied.
+			</p>
+			<hr size="1" color="#000" noshade />			
+
+			<p>
+				<a id="db_htable_new"></a>
+				
+				<h4>db_htable_new ()</h3>
+				<p class="synop">Creates a new hash table.</p>
+			
+				<h5>Declaration:</h5>
+				<div class="box_declr">DbHtable *db_htable_new (void)</div>
+
+				<h5>Description:</h5>
+				<p>
+					This function allocates the space for a new hash table and returns the pointer to it or otherwise
+					NULL on error.
+				</p>
+
+				<hr size="1" color="#000" noshade />
+			</p>
+
+			<p>
+				<a id="db_htable_push"></a>
+				
+				<h4>db_htable_push ()</h3>
+				<p class="synop">Inserts a new hash pair into the table.</p>
+			
+				<h5>Declaration:</h5>
+				<div class="box_declr">void db_htable_push (DbHtable *table, void *key, void *value)</div>
+
+				<h5>Description:</h5>
+				<p>
+					This function generates the hash value for the key and stores the hash and the given value
+					in the table.
+				</p>
+
+				<h5>Arguments:</h5>
+				<p>
+					<ol>
+						<li class="capt">table</li>
+						<li class="capt">key</li>
+						<li class="capt">value</li>
+					</ol>
+				</p>
+				
+				<hr size="1" color="#000" noshade />			
+			</p>
+
+			<p>
+				<a id="db_htable_pop"></a>
+				
+				<h4>db_htable_pop ()</h3>
+				<p class="synop">Gets the appropriate value to a key from the table.</p>
+			
+				<h5>Declaration:</h5>
+				<div class="box_declr">void *db_htable_pop (DbHtable *table, void *key)</div>
+	
+				<h5>Description:</h5>
+				<p>
+					This function returns the value to the given key or otherwise NULL if not found.
+				</p>
+			
+				<hr size="1" color="#000" noshade />			
+			</p>
+
+			<p>
+				<a id="db_htable_destroy"></a>
+				
+				<h4>db_htable_pop ()</h3>
+				<p class="synop">Destroys the table.</p>
+			
+				<h5>Declaration:</h5>
+				<div class="box_declr">void *db_htable_destroy (DbHtable *table)</div>
+
+				<h5>Description:</h5>
+				<p>
+					This function destroys the table and free's the allocated memory.
+				</p>
+				
+				<hr size="1" color="#000" noshade />			
+			</p>
+			<!-- Hash table end //-->
+			
+			<!-- List start //-->
+			<h3>List</h4>
+			<p class="synop">#include &lt;list.h&gt;</p>
+			<p>
+				Hash tables provide an easy way to associate key - value pairs. A hash function genereates a
+				hash value from the given key. Both the newly created hash and the address of the value are stored
+				inside of the table. <br />
+				Note: No data will be copied.
+			</p>
+			<hr size="1" color="#000" noshade />			
+
+			<p>
+				<a id="db_htable_new"></a>
+				
+				<h4>db_htable_new ()</h3>
+				<p class="synop">Creates a new hash table.</p>
+			
+				<h5>Declaration:</h5>
+				<div class="box_declr">DbHtable *db_htable_new (void)</div>
+
+				<h5>Description:</h5>
+				<p>
+					This function allocates the space for a new hash table and returns the pointer to it or otherwise
+					NULL on error.
+				</p>
+
+				<hr size="1" color="#000" noshade />
+			</p>
+
+		</div>
+
+	</body>
+
+</html>

@@ -1,0 +1,14 @@
+<display>
+	<plugin name="cpu" interval="10" />
+	<plugin name="battery" interval="60" />
+	<plugin name="time" format="%a %d. %b %Y %H:%M" interval="60" />
+
+	<text x="630" y="0" font="helvetica" size="12" color="red" value="Cpu:" />
+	<meter x="661" y="5" color="firebrick" width="40" height="10" data="CPU" />
+	<text x="710" y="0" font="helvetica" size="12" color="firebrick" data="CPU" />
+	
+	<text x="760" y="0" font="helvetica" size="12" color="red" value="Battery:" />
+	<meter x="812" y="5" color="firebrick" width="40" height="10" data="Battery" />
+	
+	<text x="880" y="0" font="helvetica" size="12" color="red" data="Time" />
+</display>
